@@ -50,6 +50,11 @@ This repository documents:
 - recovery of chats, projects, workspace roots, and pinned threads,
 - and the case for temporarily suspending the affected Store build.
 
+## Evidence
+
+- [Sanitized public evidence package](./evidence/ChatGPT-Codex-Public-Evidence-SANITIZED-20260730.zip)
+- [Full repository](https://github.com/phillipnhenry/chatgpt-windows-app-postmortem)
+
 ## Privacy
 
 Public evidence should be sanitized before posting. Raw logs can contain Windows usernames, local project paths, project names, account SIDs, environment variables, and thread identifiers.
