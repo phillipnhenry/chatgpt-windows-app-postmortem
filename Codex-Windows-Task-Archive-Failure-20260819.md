@@ -6,9 +6,9 @@ Status last reviewed: 2026-08-20
 
 Platform: Codex Desktop for Windows
 
-Installed package observed from the running process: `OpenAI.Codex_26.814.5517.0_x64__2p2nqsd0c76g0`
+Installed package observed from the running process: `OpenAI.Codex_26.818.2441.0_x64__2p2nqsd0c76g0`
 
-On 2026-08-20, the running processes still resolve to package `26.814.5517.0`. The app launches; the archive failure was last directly reproduced on 2026-08-19.
+On 2026-08-20, Microsoft Store and the running Codex processes both reported package `26.818.2441.0`. Task archiving was tested again after the update and still failed. A few individual archive attempts appeared to work, but further testing showed that the defect remains intermittent rather than fixed.
 
 ## Summary
 
@@ -103,6 +103,19 @@ A search of the current `CodeProjects` workspace and its root Git history found 
 - Codex crashed while this incident report was being prepared.
 - Immediately afterward, Microsoft Store showed `Update available` and then changed to `Installing` without a separate user confirmation.
 
+### 2026-08-20 — forced close, failed automatic restart, and archive defect shipped again
+
+- Codex unexpectedly closed at approximately 09:57 local time while package `26.814.5517.0` was still installed.
+- Microsoft Store then displayed a download-progress ticker. The observed 85 percent indicator was the package download, not installation progress.
+- After the download, the app displayed an update state and promised that Codex would restart automatically after the update.
+- As in prior update attempts, the promised automatic restart did not occur; Codex had to be launched manually.
+- After relaunch, Microsoft Store and the running executable path both reported package `26.818.2441.0`.
+- Archive testing initially produced a few apparent successes, but subsequent attempts confirmed that the archive failure remains present and intermittent in `26.818.2441.0`.
+
+This release is particularly concerning because the archive defect had already been reported publicly for days, with multiple related reports and unusually specific Windows path-handling evidence. Shipping another Windows build without fixing the defect, publishing a known-issues notice, or providing a supported repair path leaves affected users to discover that the update did not resolve the problem through repeated trial and error. That is not an acceptable release outcome for a defect involving persistent task state, recurring automation cleanup, and the primary navigation surface.
+
+The update experience compounds the underlying defect. Closing active work, presenting ambiguous download and update states, promising an automatic restart that does not happen, and then delivering a build in which the known archive failure persists undermines confidence in both the updater and the application state it is supposed to preserve.
+
 ### Limits of the workspace search
 
 The search covered current Markdown, text, log, JSON, and CSV records under `CodeProjects`, filename-based incident candidates, and relevant root Git history paths. It found the central reliability incident ledger, Boss continuity checkpoints, the August update evidence, and task-lane failure notes.
@@ -162,6 +175,8 @@ The sequence observed was:
 
 This sequence matters because the broader postmortem already documents failures associated with Store-delivered updates and reinstalls. OpenAI and Microsoft should be able to correlate the package update transaction, app crash, and task-store failure by timestamp in their respective diagnostics.
 
+On 2026-08-20, another update sequence was observed. Codex closed while the older build was running, Store downloaded the replacement package, and the app promised an automatic restart that never occurred. Manual relaunch showed `26.818.2441.0`; archive testing then confirmed that the reported defect was still present. This later observation distinguishes package download from installation and confirms that the replacement build did not resolve the archive failure.
+
 ## Privacy and sanitization
 
 The public report omits real local task IDs, Windows usernames, private project names, and raw local paths. Those identifiers can be supplied privately if OpenAI requests a diagnostic correlation sample.
@@ -177,7 +192,9 @@ The public report omits real local task IDs, Windows usernames, private project 
 7. Preserve recovery access to task history while repairing the active index.
 8. Continue investigating the broader Windows crash, update, reinstall, bootstrap, and sandbox failures documented in the linked postmortem.
 9. Clarify and test Microsoft Store update initiation behavior so an available update does not unexpectedly transition to installation while active Codex work and local state may be in use.
+10. Make the promised post-update automatic restart reliable, or remove the promise and present accurate instructions to the user.
+11. Publish Windows known-issue and release-status information when a new build ships with a confirmed, unresolved task-state defect.
 
 ## Severity
 
-Moderate and progressively worsening on its own; higher in combination with the established Windows crash and recovery failures. The defect does not immediately destroy visible content, but it makes recurring automations operationally impractical and steadily degrades the primary navigation surface.
+Moderate and progressively worsening on its own; higher in combination with the established Windows crash, update, and recovery failures. The defect does not immediately destroy visible content, but it makes recurring automations operationally impractical and steadily degrades the primary navigation surface. Its persistence in a subsequent Windows release, without an effective workaround or clear known-issue notice, increases the operational severity.
