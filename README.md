@@ -27,7 +27,7 @@ See the current follow-up report:
 ## Public issue tracking — 2026-08-20
 
 - [openai/codex#39492](https://github.com/openai/codex/issues/39492) is the consolidated open report for the current general Windows task-archive failure.
-- [openai/codex#39638](https://github.com/openai/codex/issues/39638) was Phil's independent report documenting the additional recurring-automation accumulation and false-success impact. Its unique evidence was transferred to `#39492`, and `#39638` was then closed as a duplicate.
+- I independently filed [openai/codex#39638](https://github.com/openai/codex/issues/39638) to document the additional recurring-automation accumulation and false-success impact. I transferred its unique evidence to `#39492` and then closed `#39638` as a duplicate.
 - [openai/codex#39600](https://github.com/openai/codex/issues/39600), [#39239](https://github.com/openai/codex/issues/39239), and [#39130](https://github.com/openai/codex/issues/39130) contain path-specific evidence indicating that Windows extended-length `\\?\` rollout-path handling is a likely cause. This is strong community reproduction evidence, not yet an official OpenAI root-cause determination.
 
 ## Original critical finding — 2026-07-31

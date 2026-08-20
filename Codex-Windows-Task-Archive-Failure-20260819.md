@@ -19,8 +19,8 @@ This is especially damaging for recurring automations because each run creates a
 ## Public tracker consolidation — 2026-08-20
 
 - [openai/codex#39492](https://github.com/openai/codex/issues/39492) is the consolidated open report for the general Windows task-archive failure.
-- Phil independently filed [#39638](https://github.com/openai/codex/issues/39638), documenting the additional impact on recurring automations, active-sidebar growth, and tool calls whose returned failure text could be mistaken for success.
-- That unique evidence was posted to `#39492`, after which `#39638` was closed as a duplicate to keep investigation centralized.
+- I independently filed [#39638](https://github.com/openai/codex/issues/39638) to document the additional impact on recurring automations, active-sidebar growth, and tool calls whose returned failure text could be mistaken for success.
+- I posted that unique evidence to `#39492` and then closed `#39638` as a duplicate to keep investigation centralized.
 - [#39471](https://github.com/openai/codex/issues/39471), [#39239](https://github.com/openai/codex/issues/39239), and [#39130](https://github.com/openai/codex/issues/39130) remain related open Windows archive reports. [#39600](https://github.com/openai/codex/issues/39600) was closed as a duplicate after contributing a particularly useful deterministic reproduction.
 
 ### Strong path-handling evidence from related reports
