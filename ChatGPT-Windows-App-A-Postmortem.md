@@ -6,7 +6,7 @@
 
 This document preserves the original critical investigation of Store build `26.721.11231.0`. That build's complete startup/bootstrap failure is historical evidence, not the currently installed package state.
 
-The package observed running on 2026-08-20 is `OpenAI.Codex_26.814.5517.0`. It launches, but later builds have continued to exhibit crashes, freezes, duplicated prompts, failed steering, Store update failures, abnormal idle resource use, and broken local-task archiving.
+The package observed running on 2026-08-20 is `OpenAI.Codex_26.818.2441.0`. It launches, but later builds have continued to exhibit crashes, freezes, duplicated prompts, failed steering, Store update failures, abnormal idle resource use, and broken local-task archiving. Archive testing after the update confirmed that the defect remains intermittent rather than fixed.
 
 Current follow-up:
 
@@ -37,7 +37,7 @@ OpenAI’s product announcement confirms that the Codex app became available on 
 
 Repository follow-up incident:
 
-- [Codex Windows task archiving fails and completed tasks accumulate in the sidebar](./Codex-Windows-Task-Archive-Failure-20260819.md) — reproduced on package `26.814.5517.0`; a further Codex crash occurred while the report was being prepared.
+- [Codex Windows task archiving fails and completed tasks accumulate in the sidebar](./Codex-Windows-Task-Archive-Failure-20260819.md) — first reproduced on package `26.814.5517.0` and reproduced again after updating to `26.818.2441.0`; a further Codex crash occurred while the report was being prepared.
 
 ## Severity
 
@@ -654,6 +654,8 @@ The earlier successful recovery happened only because the Store replaced the old
 On 2026-08-19, package `26.814.5517.0` failed to archive completed local Codex tasks. The thread store returned Windows `os error 2`, and completed automation runs remained visible in the sidebar. Nineteen runs from one daily automation had accumulated when cleanup was attempted.
 
 Codex Desktop also crashed again while the follow-up report was being prepared. That crash is recorded as an additional reliability observation, not as proof that the archive defect caused it.
+
+On 2026-08-20, Codex closed during another Store update sequence. The Store first showed download progress, the app then promised an automatic restart that did not occur, and Codex had to be launched manually. Microsoft Store and the running process path both confirmed package `26.818.2441.0`. A few archive attempts appeared successful, but further testing confirmed that the archive defect remains intermittent in the new build. Releasing another Windows package without resolving, clearly acknowledging, or providing a supported workaround for this days-old task-state defect is not an acceptable release outcome.
 
 Immediately after the crash, Microsoft Store showed `Update available` for Codex and then transitioned to `Installing` without a separate user confirmation. The observation is recorded without asserting which component initiated the Store transaction.
 

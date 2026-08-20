@@ -1,6 +1,8 @@
 # Codex Windows task archiving fails and completed tasks accumulate in the sidebar
 
-Observed: 2026-08-19
+First observed: 2026-08-19
+
+Latest reproduction: 2026-08-20
 
 Status last reviewed: 2026-08-20
 

@@ -8,7 +8,7 @@ Currently running Microsoft Store package:
 
 ```text
 OpenAI.Codex
-Version: 26.814.5517.0
+Version: 26.818.2441.0
 Store product ID: 9PLM9XGG6VKS
 ```
 
@@ -17,8 +17,9 @@ The application currently launches, so the original complete startup failure on 
 - completed local tasks fail to archive with thread-store Windows `os error 2`;
 - recurring automation runs accumulate in the active sidebar;
 - crashes, freezes, duplicated prompts, failed steering, and uncertain responsiveness have continued across later builds;
-- Codex crashed while the archive incident report was being prepared on 2026-08-19; and
-- immediately afterward, Microsoft Store showed `Update available` and then changed to `Installing` without a separate user confirmation, but the package observed running on 2026-08-20 remains `26.814.5517.0`.
+- Codex crashed while the archive incident report was being prepared on 2026-08-19;
+- another update sequence on 2026-08-20 closed Codex before installation, presented ambiguous download/update progress, and failed to perform the promised automatic restart; and
+- after manual relaunch, Microsoft Store and the running processes both reported `26.818.2441.0`, but archive testing confirmed that the defect remains intermittent rather than fixed.
 
 See the current follow-up report:
 
@@ -64,7 +65,7 @@ STATUS_UNSUCCESSFUL
 See:
 
 - [`ChatGPT-Windows-App-A-Postmortem.md`](./ChatGPT-Windows-App-A-Postmortem.md)
-- [`Codex-Windows-Task-Archive-Failure-20260819.md`](./Codex-Windows-Task-Archive-Failure-20260819.md) — follow-up report covering broken task archiving, automation-run sidebar accumulation, and a further crash observed while documenting the defect.
+- [`Codex-Windows-Task-Archive-Failure-20260819.md`](./Codex-Windows-Task-Archive-Failure-20260819.md) — follow-up report covering broken task archiving, automation-run sidebar accumulation, continuing crashes, and the defect's confirmed persistence in package `26.818.2441.0` on 2026-08-20.
 
 ## Scope
 
