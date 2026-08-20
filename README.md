@@ -24,6 +24,12 @@ See the current follow-up report:
 
 - [`Codex-Windows-Task-Archive-Failure-20260819.md`](./Codex-Windows-Task-Archive-Failure-20260819.md)
 
+## Public issue tracking — 2026-08-20
+
+- [openai/codex#39492](https://github.com/openai/codex/issues/39492) is the consolidated open report for the current general Windows task-archive failure.
+- [openai/codex#39638](https://github.com/openai/codex/issues/39638) was Phil's independent report documenting the additional recurring-automation accumulation and false-success impact. Its unique evidence was transferred to `#39492`, and `#39638` was then closed as a duplicate.
+- [openai/codex#39600](https://github.com/openai/codex/issues/39600), [#39239](https://github.com/openai/codex/issues/39239), and [#39130](https://github.com/openai/codex/issues/39130) contain path-specific evidence indicating that Windows extended-length `\\?\` rollout-path handling is a likely cause. This is strong community reproduction evidence, not yet an official OpenAI root-cause determination.
+
 ## Original critical finding — 2026-07-31
 
 Microsoft Store package:
@@ -91,6 +97,7 @@ OpenAI should treat the Windows failures as a continuing reliability and state-m
 - repair task archiving and add create/archive/list/restore integration coverage;
 - prevent recurring automation-run tasks from accumulating in the active sidebar;
 - return structured operation failures that cannot be mistaken for success;
+- normalize and consistently handle Windows extended-length rollout paths during task resume and archive operations;
 - provide supported thread-store repair/reindex and local-state recovery tooling;
 - investigate continuing crashes, freezes, failed steering, duplicate prompts, and abnormal idle resource use;
 - make Store update initiation and completion explicit and diagnosable; and

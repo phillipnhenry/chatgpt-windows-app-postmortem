@@ -12,6 +12,8 @@ Current follow-up:
 
 - [Codex Windows task archiving fails and completed tasks accumulate in the sidebar](./Codex-Windows-Task-Archive-Failure-20260819.md)
 
+Public tracking for the archive defect is now consolidated in [openai/codex#39492](https://github.com/openai/codex/issues/39492). Phil's independent report, [#39638](https://github.com/openai/codex/issues/39638), added the recurring-automation accumulation and false-success impact; that evidence was transferred to `#39492` before `#39638` was closed as a duplicate. Related reports [#39600](https://github.com/openai/codex/issues/39600), [#39239](https://github.com/openai/codex/issues/39239), and [#39130](https://github.com/openai/codex/issues/39130) provide strong reproduction evidence implicating inconsistent handling of Windows extended-length `\\?\` rollout paths. OpenAI has not yet publicly confirmed that as the official root cause.
+
 ## Public tracker and related reports
 
 This report is intended for the official public Codex issue tracker:

@@ -16,6 +16,24 @@ Codex Desktop cannot archive existing local tasks. The task archive operation re
 
 This is especially damaging for recurring automations because each run creates another task. Nineteen completed runs of one daily automation were visible during this test, along with retired and otherwise completed tasks that could not be removed from the active tree.
 
+## Public tracker consolidation — 2026-08-20
+
+- [openai/codex#39492](https://github.com/openai/codex/issues/39492) is the consolidated open report for the general Windows task-archive failure.
+- Phil independently filed [#39638](https://github.com/openai/codex/issues/39638), documenting the additional impact on recurring automations, active-sidebar growth, and tool calls whose returned failure text could be mistaken for success.
+- That unique evidence was posted to `#39492`, after which `#39638` was closed as a duplicate to keep investigation centralized.
+- [#39471](https://github.com/openai/codex/issues/39471), [#39239](https://github.com/openai/codex/issues/39239), and [#39130](https://github.com/openai/codex/issues/39130) remain related open Windows archive reports. [#39600](https://github.com/openai/codex/issues/39600) was closed as a duplicate after contributing a particularly useful deterministic reproduction.
+
+### Strong path-handling evidence from related reports
+
+The strongest current public evidence indicates that inconsistent handling of Windows extended-length paths is a likely cause:
+
+1. Opening or resuming a valid task can rewrite its stored `rollout_path` from ordinary `C:\...` form to extended-length `\\?\C:\...` form.
+2. Archiving then fails with thread-store `os error 2`, even though the source rollout file and archive destination exist.
+3. In the deterministic test documented in `#39600`, normalizing the stored path back to ordinary `C:\...` form made archive succeed.
+4. Opening the task again restored the `\\?\` form and reproduced the archive failure.
+
+This is strong independent reproduction evidence, but it is not yet an official OpenAI root-cause determination. No direct task-database modification is recommended here as a user workaround; unsupported edits could damage task history or the thread-store index.
+
 ## Relationship to the broader Windows failure history
 
 This is a follow-up incident to the larger Windows app postmortem:
@@ -152,12 +170,13 @@ The public report omits real local task IDs, Windows usernames, private project 
 
 1. Repair task archiving in the Windows thread store.
 2. Return structured operation failures instead of failure text through a nominally resolved call.
-3. Add an integration test that creates, archives, lists, and restores a local task.
-4. Add a recurring-automation test confirming that completed run tasks self-archive and do not accumulate in the active sidebar.
-5. Provide a supported repair or reindex operation for existing local task stores affected by missing-file references.
-6. Preserve recovery access to task history while repairing the active index.
-7. Continue investigating the broader Windows crash, update, reinstall, bootstrap, and sandbox failures documented in the linked postmortem.
-8. Clarify and test Microsoft Store update initiation behavior so an available update does not unexpectedly transition to installation while active Codex work and local state may be in use.
+3. Normalize and consistently handle ordinary and Windows extended-length rollout paths across task creation, resume, archive, list, and restore operations.
+4. Add an integration test that creates, resumes, archives, lists, and restores a local task using both ordinary and `\\?\` path forms.
+5. Add a recurring-automation test confirming that completed run tasks self-archive and do not accumulate in the active sidebar.
+6. Provide a supported repair or reindex operation for existing local task stores affected by missing-file references.
+7. Preserve recovery access to task history while repairing the active index.
+8. Continue investigating the broader Windows crash, update, reinstall, bootstrap, and sandbox failures documented in the linked postmortem.
+9. Clarify and test Microsoft Store update initiation behavior so an available update does not unexpectedly transition to installation while active Codex work and local state may be in use.
 
 ## Severity
 
