@@ -36,6 +36,7 @@ STATUS_UNSUCCESSFUL
 See:
 
 - [`ChatGPT-Windows-App-A-Postmortem.md`](./ChatGPT-Windows-App-A-Postmortem.md)
+- [`Codex-Windows-Task-Archive-Failure-20260819.md`](./Codex-Windows-Task-Archive-Failure-20260819.md) — follow-up report covering broken task archiving, automation-run sidebar accumulation, and a further crash observed while documenting the defect.
 
 ## Scope
 
@@ -48,6 +49,8 @@ This repository documents:
 - sandbox bootstrap failure,
 - Windows integrity checks,
 - recovery of chats, projects, workspace roots, and pinned threads,
+- failure to archive completed local tasks and resulting sidebar growth,
+- continued crashes observed after the original recovery period,
 - and the case for temporarily suspending the affected Store build.
 
 ## Evidence

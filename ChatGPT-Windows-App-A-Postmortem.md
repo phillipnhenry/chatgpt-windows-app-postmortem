@@ -23,6 +23,10 @@ OpenAI’s product announcement confirms that the Codex app became available on 
 
 - [Introducing the Codex app](https://openai.com/index/introducing-the-codex-app/)
 
+Repository follow-up incident:
+
+- [Codex Windows task archiving fails and completed tasks accumulate in the sidebar](./Codex-Windows-Task-Archive-Failure-20260819.md) — reproduced on package `26.814.5517.0`; a further Codex crash occurred while the report was being prepared.
+
 ## Severity
 
 **Critical / blocker**
@@ -630,3 +634,17 @@ Every uninstall and reinstall now returns the same Store version:
 The earlier successful recovery happened only because the Store replaced the older broken build `26.721.4979.0` with a genuinely newer build. Repeating the uninstall procedure now only reinstalls the same failing package.
 
 **Updated requested resolution: suspend Store distribution of build `26.721.11231.0` until OpenAI ships a verified replacement with reliable bootstrap, sandbox setup, multi-task handling, diagnostics, and recovery behavior.**
+
+---
+
+## Follow-up incident: task archive failure and continuing instability
+
+On 2026-08-19, package `26.814.5517.0` failed to archive completed local Codex tasks. The thread store returned Windows `os error 2`, and completed automation runs remained visible in the sidebar. Nineteen runs from one daily automation had accumulated when cleanup was attempted.
+
+Codex Desktop also crashed again while the follow-up report was being prepared. That crash is recorded as an additional reliability observation, not as proof that the archive defect caused it.
+
+Immediately after the crash, Microsoft Store showed `Update available` for Codex and then transitioned to `Installing` without a separate user confirmation. The observation is recorded without asserting which component initiated the Store transaction.
+
+See the standalone sanitized report:
+
+- [`Codex-Windows-Task-Archive-Failure-20260819.md`](./Codex-Windows-Task-Archive-Failure-20260819.md)
