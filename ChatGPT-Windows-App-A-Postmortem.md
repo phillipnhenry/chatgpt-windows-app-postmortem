@@ -2,6 +2,16 @@
 
 > This issue concerns the **Codex/ChatGPT Windows desktop application distributed through Microsoft Store**, package `OpenAI.Codex`. It is not a Codex CLI installation problem.
 
+## Document status — updated 2026-08-20
+
+This document preserves the original critical investigation of Store build `26.721.11231.0`. That build's complete startup/bootstrap failure is historical evidence, not the currently installed package state.
+
+The package observed running on 2026-08-20 is `OpenAI.Codex_26.814.5517.0`. It launches, but later builds have continued to exhibit crashes, freezes, duplicated prompts, failed steering, Store update failures, abnormal idle resource use, and broken local-task archiving.
+
+Current follow-up:
+
+- [Codex Windows task archiving fails and completed tasks accumulate in the sidebar](./Codex-Windows-Task-Archive-Failure-20260819.md)
+
 ## Public tracker and related reports
 
 This report is intended for the official public Codex issue tracker:
@@ -35,7 +45,7 @@ The application repeatedly becomes completely unlaunchable, reports no actionabl
 
 The user already spent approximately two days preserving and reconstructing work after the first failure. The replacement build initially worked, allowed recovery, and then became unlaunchable again.
 
-## Current package
+## Original affected package
 
 ```text
 Package name: OpenAI.Codex
@@ -648,3 +658,15 @@ Immediately after the crash, Microsoft Store showed `Update available` for Codex
 See the standalone sanitized report:
 
 - [`Codex-Windows-Task-Archive-Failure-20260819.md`](./Codex-Windows-Task-Archive-Failure-20260819.md)
+
+## Current requested resolution — 2026-08-20
+
+The requested resolution is no longer limited to suspending superseded build `26.721.11231.0`. OpenAI should:
+
+1. Repair local-task archiving and the missing-file/thread-store failure.
+2. Provide supported task-store diagnostics, repair/reindex, and recovery procedures.
+3. Ensure archive and other state-changing operations return structured failures that callers cannot misread as success.
+4. Test recurring automation cleanup so completed run tasks do not accumulate in the active sidebar.
+5. Investigate continuing crashes, freezes, duplicated prompts, failed steering, and abnormal idle resource consumption across later Store builds.
+6. Make Store update initiation, progress, failure, rollback, and installed-version identity explicit and diagnosable.
+7. Regression-test startup, sandbox setup, updates, reinstalls, concurrent tasks, task-state recovery, and sidebar restoration on supported Windows 10 and Windows 11 environments.

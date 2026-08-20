@@ -2,7 +2,29 @@
 
 A technical postmortem of repeated failures in the Microsoft Store ChatGPT/Codex Windows application, including failed reinstalls, machine-wide bootstrap errors, recovery work, Procmon evidence, sandbox setup failures, and recommendations for OpenAI and Microsoft.
 
-## Current finding
+## Current status — 2026-08-20
+
+Currently running Microsoft Store package:
+
+```text
+OpenAI.Codex
+Version: 26.814.5517.0
+Store product ID: 9PLM9XGG6VKS
+```
+
+The application currently launches, so the original complete startup failure on build `26.721.11231.0` should no longer be presented as the current package state. Reliability defects continue:
+
+- completed local tasks fail to archive with thread-store Windows `os error 2`;
+- recurring automation runs accumulate in the active sidebar;
+- crashes, freezes, duplicated prompts, failed steering, and uncertain responsiveness have continued across later builds;
+- Codex crashed while the archive incident report was being prepared on 2026-08-19; and
+- immediately afterward, Microsoft Store showed `Update available` and then changed to `Installing` without a separate user confirmation, but the package observed running on 2026-08-20 remains `26.814.5517.0`.
+
+See the current follow-up report:
+
+- [`Codex-Windows-Task-Archive-Failure-20260819.md`](./Codex-Windows-Task-Archive-Failure-20260819.md)
+
+## Original critical finding — 2026-07-31
 
 Microsoft Store package:
 
@@ -64,4 +86,12 @@ Public evidence should be sanitized before posting. Raw logs can contain Windows
 
 ## Requested resolution
 
-OpenAI should replace or suspend Store build `26.721.11231.0` until a verified Windows package is available with reliable startup, sandbox setup, diagnostics, concurrent-task handling, and recovery behavior.
+OpenAI should treat the Windows failures as a continuing reliability and state-management problem rather than a defect confined to one superseded build. Requested work now includes:
+
+- repair task archiving and add create/archive/list/restore integration coverage;
+- prevent recurring automation-run tasks from accumulating in the active sidebar;
+- return structured operation failures that cannot be mistaken for success;
+- provide supported thread-store repair/reindex and local-state recovery tooling;
+- investigate continuing crashes, freezes, failed steering, duplicate prompts, and abnormal idle resource use;
+- make Store update initiation and completion explicit and diagnosable; and
+- regression-test startup, sandbox setup, updates, reinstalls, concurrent tasks, recovery, and sidebar state across supported Windows versions and hardware.

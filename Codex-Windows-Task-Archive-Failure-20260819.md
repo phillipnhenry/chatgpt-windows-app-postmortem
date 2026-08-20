@@ -2,9 +2,13 @@
 
 Observed: 2026-08-19
 
+Status last reviewed: 2026-08-20
+
 Platform: Codex Desktop for Windows
 
 Installed package observed from the running process: `OpenAI.Codex_26.814.5517.0_x64__2p2nqsd0c76g0`
+
+On 2026-08-20, the running processes still resolve to package `26.814.5517.0`. The app launches; the archive failure was last directly reproduced on 2026-08-19.
 
 ## Summary
 
