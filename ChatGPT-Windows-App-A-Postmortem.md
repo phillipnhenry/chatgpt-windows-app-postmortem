@@ -2,11 +2,79 @@
 
 > This issue concerns the **Codex/ChatGPT Windows desktop application distributed through Microsoft Store**, package `OpenAI.Codex`. It is not a Codex CLI installation problem.
 
-## Document status — updated 2026-08-20
+## Document status — updated 2026-09-06
 
 This document preserves the original critical investigation of Store build `26.721.11231.0`. That build's complete startup/bootstrap failure is historical evidence, not the currently installed package state.
 
 The package observed running on 2026-08-20 is `OpenAI.Codex_26.818.2441.0`. It launches, but later builds have continued to exhibit crashes, freezes, duplicated prompts, failed steering, Store update failures, abnormal idle resource use, and broken local-task archiving. Archive testing after the update confirmed that the defect remains intermittent rather than fixed.
+
+## September 2026 verdict: the Windows app and its release process are unacceptable
+
+The Codex Windows app is not production-quality. In plain language, it is crap. It is unreliable in exactly the areas where a professional development tool must be dependable: startup, updates, task identity, task continuity, repository binding, tool availability, archiving, recovery, and diagnostics.
+
+This is especially infuriating because the underlying Codex agent can do excellent work. The Windows app repeatedly becomes the weakest part of the system. It crashes around active work, forces users to reconstruct state, loses capabilities from resumed tasks, resurrects stale metadata, and then offers no supported mechanism to repair the damaged task binding. The application converts productive engineering time into unpaid quality-assurance and recovery labor for OpenAI.
+
+The development and release process behind this app deserves the same blunt criticism. Shipping repeated updates without reliable clean-install, in-place-upgrade, crash-recovery, task-resume, project-placement, tool-attachment, and rollback coverage is a failure of engineering discipline. An update process that closes the app, communicates progress ambiguously, fails to restart as promised, or returns with damaged task state is not an update process customers should trust. Repeatedly exposing these failures to paying users suggests that release velocity is being prioritized over basic Windows reliability and continuity.
+
+### 2026-09-06 crash: persisted conversation, damaged task
+
+Another Windows app crash on 2026-09-06 left a previously functioning Brand Navigation task materially degraded.
+
+Before the crash, the task had authenticated browser control. After the crash:
+
+1. The conversation and browser tab still appeared in the app.
+2. The task received ambient metadata identifying the open browser tab.
+3. The callable browser-control runtime was gone.
+4. Chrome was running.
+5. The OpenAI browser extension was installed and enabled.
+6. Native-host registration was correct.
+7. Opening a fresh Chrome window for the selected profile did not restore the task attachment.
+8. A forced archive/unarchive reload of the exact task did not restore the capability.
+9. The task's recorded working directory regressed to an obsolete, nonexistent repository path after the correct path and project placement had already been restored.
+10. Sidebar visibility, pinning, archive state, and project placement again required manual intervention.
+
+The app also produced contradictory task-state behavior, including a “Could not unarchive this task” message while task-list and archive-list operations disagreed about the task's state. Recovering visibility required forced archive-state transitions and repeated repinning. Even after that repair, a later app crash restored stale task metadata.
+
+This failure is not attributable to Chrome, the browser extension, Discourse, or the target repository. The healthy browser side remained present. The Codex task-to-tool attachment disappeared. The app preserved enough state to imply continuity while silently discarding part of the task's operational identity.
+
+That is worse than a clean failure. A clean failure says the task cannot be opened. This failure opens the task and encourages the user to trust it while its working directory and capabilities may no longer match the task that existed before the crash.
+
+### Why this is a development-process failure
+
+A credible Windows release process would automatically test, at minimum:
+
+- crash and forced-close recovery with multiple active tasks;
+- exact restoration of task ID, project membership, working directory, repository identity, pinned/archive state, permissions, and tool inventory;
+- browser-extension and native-host reattachment after restart;
+- in-app browser continuity where authenticated tabs remain open;
+- upgrade while tasks are idle, active, waiting on tools, and using multiple workspace roots;
+- rollback to the previous build without task-store corruption;
+- consistency between sidebar state, task-list APIs, archive APIs, and the opened page; and
+- a supported repair path that does not require creating a replacement task or manually reconstructing its context.
+
+The recurring failures documented here show that this coverage is absent, ineffective, or not gating Windows releases. Whatever the internal explanation, the customer-facing result is the same: the Windows app is being shipped without adequate protection for real, long-running development work.
+
+### Paid ChatGPT Pro 20× renewal did not reset available usage
+
+The reliability failure is compounded by a billing problem that requires a direct answer.
+
+ChatGPT Pro 20× renewed automatically on **2026-09-04** for **$200.00**. The available Codex usage did not reset when that new paid month began. On 2026-09-06, the account still reported **57% used** in the current Codex allowance and displayed a separate usage-window reset later that day.
+
+OpenAI must answer the obvious question:
+
+> Why was another $200 charged automatically for a new month of ChatGPT Pro 20× if the customer's available usage did not reset with the paid renewal?
+
+If the subscription billing cycle and the 20× usage window are intentionally independent, OpenAI should identify where that material limitation was clearly disclosed before renewal and explain what new value became available at the instant the $200 charge was collected. A customer should not be charged for a fresh month while carrying forward a partly consumed allowance on an unrelated clock without a prominent, intelligible explanation.
+
+Requested billing resolution:
+
+1. Provide the exact billing-period and usage-window ledger for the affected account.
+2. Explain why the September 4 renewal did not reset the paid usage allowance.
+3. Restore the usage capacity reasonably associated with the renewed 20× month.
+4. Credit or refund any period for which the renewed capacity was not supplied.
+5. Make the billing cycle, usage windows, reset times, and effect of renewal visible before purchase and before automatic renewal.
+
+This should not be answered with generic documentation, a description of rate limits in the abstract, or another request that the customer diagnose OpenAI's systems. The charge, entitlement, consumption, and reset ledger are OpenAI's records. OpenAI should reconcile them.
 
 Current follow-up:
 

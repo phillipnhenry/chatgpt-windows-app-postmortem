@@ -2,7 +2,33 @@
 
 A technical postmortem of repeated failures in the Microsoft Store ChatGPT/Codex Windows application, including failed reinstalls, machine-wide bootstrap errors, recovery work, Procmon evidence, sandbox setup failures, and recommendations for OpenAI and Microsoft.
 
-## Current status — 2026-08-20
+## Current verdict — 2026-09-06
+
+The Codex Windows app is not production-quality. In ordinary language, it is crap: unreliable, continuity-breaking, difficult to diagnose, and capable of turning a successful development session into hours or days of repair work. The underlying Codex agent can produce excellent work; the Windows application wrapped around it repeatedly damages that work by crashing, losing task capabilities, reviving stale state, confusing archived and active tasks, and providing no dependable recovery path.
+
+The development, update, and release process behind the Windows app is equally unacceptable. Updates have closed working sessions, exposed ambiguous progress, failed to restart as promised, and shipped without preventing regressions in startup, task archiving, task identity, project placement, working-directory state, and tool attachment. These are not cosmetic defects. They attack the continuity guarantees on which a serious development tool depends.
+
+The latest crash on 2026-09-06 damaged a previously functioning Brand Navigation task:
+
+- the task retained its conversation but lost its callable browser-control runtime;
+- Chrome, the OpenAI browser extension, and native-host registration were healthy;
+- the task received ambient browser-tab metadata but no browser-control interface;
+- a forced archive/unarchive reload did not restore the capability;
+- the task's recorded working directory regressed to an obsolete, nonexistent path after the correct project and repository location had already been restored;
+- sidebar visibility, pinning, archive state, and project placement again required manual repair; and
+- the app exposed contradictory state, including a “Could not unarchive this task” error while backend records disagreed about whether the task was archived.
+
+This is an app failure, not a Chrome failure, a Discourse failure, or a user-configuration failure. A crash should not silently change what tools a resumed task can use or resurrect obsolete task metadata. If a task cannot be resumed with the same identity, project, working directory, permissions, and attached capabilities, then the app has not recovered the task—it has only reopened a damaged transcript.
+
+## Billing and usage-reset failure — answer required
+
+ChatGPT Pro 20× renewed automatically on **2026-09-04** for **$200.00**. The available Codex usage did not reset with that paid monthly renewal. On 2026-09-06, the account still reported **57% of the current Codex allowance used**, with its own separate usage-window reset scheduled for later that day.
+
+OpenAI needs to answer this directly: **Why was another $200 collected automatically for a new month of ChatGPT Pro 20× while the paid usage available to the customer did not reset at renewal?** If subscription billing and usage windows intentionally run on unrelated clocks, where was that disclosed clearly before renewal, and what exactly did the new $200 payment replenish at the moment it was charged?
+
+The requested remedy is not marketing language or a generic link to usage documentation. OpenAI should provide the billing-period and usage-window ledger, explain the mismatch, immediately restore the allowance that the renewed month reasonably implies, and credit or refund any paid period for which the advertised 20× capacity was not actually renewed.
+
+## Earlier status — 2026-08-20
 
 Currently running Microsoft Store package:
 
