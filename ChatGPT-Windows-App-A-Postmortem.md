@@ -10,6 +10,19 @@ The package observed running on 2026-08-20 is `OpenAI.Codex_26.818.2441.0`. It l
 
 ## September 2026 verdict: the Windows app and its release process are unacceptable
 
+The package running during the 2026-09-06 incident was independently identified from the executable paths of the active `ChatGPT.exe` processes:
+
+```text
+Package name: OpenAI.Codex
+Package version: 26.901.5003.0
+Store product ID: 9PLM9XGG6VKS
+Executable: app\ChatGPT.exe
+ChatGPT.exe file version: 152.0.7977.64
+ChatGPT.exe product version: 152.0.7977.64
+```
+
+This is therefore a current failure in `26.901.5003.0`, not merely another reference to the historical `26.721.11231.0` or `26.818.2441.0` builds discussed below.
+
 The Codex Windows app is not production-quality. In plain language, it is crap. It is unreliable in exactly the areas where a professional development tool must be dependable: startup, updates, task identity, task continuity, repository binding, tool availability, archiving, recovery, and diagnostics.
 
 This is especially infuriating because the underlying Codex agent can do excellent work. The Windows app repeatedly becomes the weakest part of the system. It crashes around active work, forces users to reconstruct state, loses capabilities from resumed tasks, resurrects stale metadata, and then offers no supported mechanism to repair the damaged task binding. The application converts productive engineering time into unpaid quality-assurance and recovery labor for OpenAI.

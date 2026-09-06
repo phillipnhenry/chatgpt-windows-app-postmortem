@@ -4,6 +4,15 @@ A technical postmortem of repeated failures in the Microsoft Store ChatGPT/Codex
 
 ## Current verdict — 2026-09-06
 
+Currently installed and running Microsoft Store package:
+
+```text
+OpenAI.Codex
+Version: 26.901.5003.0
+Store product ID: 9PLM9XGG6VKS
+ChatGPT.exe file/product version: 152.0.7977.64
+```
+
 The Codex Windows app is not production-quality. In ordinary language, it is crap: unreliable, continuity-breaking, difficult to diagnose, and capable of turning a successful development session into hours or days of repair work. The underlying Codex agent can produce excellent work; the Windows application wrapped around it repeatedly damages that work by crashing, losing task capabilities, reviving stale state, confusing archived and active tasks, and providing no dependable recovery path.
 
 The development, update, and release process behind the Windows app is equally unacceptable. Updates have closed working sessions, exposed ambiguous progress, failed to restart as promised, and shipped without preventing regressions in startup, task archiving, task identity, project placement, working-directory state, and tool attachment. These are not cosmetic defects. They attack the continuity guarantees on which a serious development tool depends.
