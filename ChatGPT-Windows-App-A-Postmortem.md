@@ -89,6 +89,87 @@ Requested billing resolution:
 
 This should not be answered with generic documentation, a description of rate limits in the abstract, or another request that the customer diagnose OpenAI's systems. The charge, entitlement, consumption, and reset ledger are OpenAI's records. OpenAI should reconcile them.
 
+### Bug-reporting process: reports accumulate without visible ownership
+
+The public issue tracker does not show a credible triage and ownership process for the Windows failures cited in this report. The following census was retrieved from the OpenAI Codex repository on 2026-09-06:
+
+| Issue | State | Assignee | Comments | Last updated (UTC) |
+| --- | --- | --- | ---: | --- |
+| [#39492](https://github.com/openai/codex/issues/39492) | Open | None | 4 | 2026-08-21 |
+| [#39638](https://github.com/openai/codex/issues/39638) | Closed | None | 2 | 2026-08-20 |
+| [#39600](https://github.com/openai/codex/issues/39600) | Closed as duplicate | None | 1 | 2026-08-20 |
+| [#39239](https://github.com/openai/codex/issues/39239) | Open | None | 26 | 2026-08-20 |
+| [#39130](https://github.com/openai/codex/issues/39130) | Open | None | 17 | 2026-08-21 |
+| [#25489](https://github.com/openai/codex/issues/25489) | Open | None | 16 | 2026-07-04 |
+| [#19352](https://github.com/openai/codex/issues/19352) | Open | None | 7 | 2026-04-30 |
+| [#19437](https://github.com/openai/codex/issues/19437) | Closed as duplicate | None | 4 | 2026-05-13 |
+| [#19770](https://github.com/openai/codex/issues/19770) | Open | None | 4 | 2026-05-22 |
+| [#26624](https://github.com/openai/codex/issues/26624) | Open | None | 2 | 2026-08-12 |
+| [#33483](https://github.com/openai/codex/issues/33483) | Open | None | 16 | 2026-07-26 |
+| [#13993](https://github.com/openai/codex/issues/13993) | Open/reopened | `chess-oai` | 84 | 2026-09-05 |
+| [#36272](https://github.com/openai/codex/issues/36272) | Open | None | 0 | 2026-07-31 |
+
+Totals:
+
+- 13 reports examined;
+- ten open and three closed;
+- 12 of 13 unassigned;
+- nine of ten open reports unassigned;
+- 183 issue comments in total; and
+- zero comments marked by GitHub's API with `OWNER`, `MEMBER`, or `COLLABORATOR` author association.
+
+The author-association count is a statement about GitHub's public metadata, not a claim about private investigation inside OpenAI. That qualification does not rescue the public process. Customers cannot see an owner, target version, investigation status, accepted reproduction, root cause, or fix confirmation on nearly all of these reports.
+
+The most direct report from this postmortem, [#36272](https://github.com/openai/codex/issues/36272), identifies the exact failing package, native bootstrap behavior, and clean-profile reproduction. It remains open, unassigned, and has received zero comments. The canonical archive reports #39492, #39239, and #39130 remain open and unassigned despite 47 public comments among them. Reports #25489, #19352, #19770, #26624, and #33483 describe launch, blank-screen, missing-history, crash, and performance failures and likewise remain open and unassigned.
+
+Closing duplicate reports is reasonable only when the surviving canonical issue is actively owned and updated. Closing duplicates into an unassigned, publicly silent backlog merely makes the queue look smaller. It does not tell affected users whether OpenAI reproduced the defect, whether a fix exists, or which release contains it.
+
+For a paid developer product, the minimum public bug workflow should include:
+
+1. Acknowledgment that the report was reproduced or a precise request for missing evidence.
+2. A named owner or responsible team.
+3. A visible investigation state.
+4. A canonical issue when duplicates are closed.
+5. The fixed build or explicit statement that no fix is available.
+6. A release-note link when the fix ships.
+7. A supported workaround and recovery warning when user state is at risk.
+
+The present process shifts diagnosis, duplicate correlation, regression testing, and cross-version tracking onto customers, then frequently leaves the resulting evidence unassigned and untouched. That is not a serious bug-reporting process.
+
+### Version-to-version communication is fragmented and inadequate
+
+OpenAI's developer area now links to a combined [ChatGPT and Codex changelog](https://learn.chatgpt.com/docs/changelog). That is better than publishing nothing, but it is not an adequate Windows release ledger.
+
+The changelog contains no exact match for current Store package `26.901.5003.0`. It combines:
+
+- general ChatGPT product announcements;
+- ChatGPT desktop-app changes that are not always tied to Windows package numbers;
+- iOS releases;
+- Codex CLI releases with their own semantic versions;
+- occasional desktop releases identified only by abbreviated builds such as `26.727` or `26.707`; and
+- broad phrases such as “Additional performance improvements and bug fixes.”
+
+The dedicated [Windows app documentation](https://learn.chatgpt.com/docs/windows/windows-app) describes installation, supported capabilities, PowerShell, sandboxing, WSL, and basic troubleshooting. It does not provide a version history or map the Store package to a detailed release record.
+
+This fragmentation is especially damaging in the current incident. The September 1 changelog says task-list loading and organization became more reliable and reconnects were improved. The same date's Codex CLI `0.152.0` notes say resumed threads restore their saved working directory and MCP tools remain available through cache refreshes and remote plugin changes. Those are precisely the behaviors that failed after the crash in the installed Windows package.
+
+The changelog does not say whether Windows package `26.901.5003.0` embeds those exact changes, which app-server or CLI build it contains, whether the browser-control runtime has a separate version, or whether the claims apply only to another client. That ambiguity makes the release communication nearly useless for diagnosis. OpenAI can publicly claim a fix while a Windows customer cannot determine whether the claim applies to the binary actually installed on the machine.
+
+Every Windows desktop release should publish one authoritative record containing:
+
+1. Exact Microsoft Store package version, not only an abbreviated marketing build.
+2. Release date and staged-rollout status.
+3. Embedded Codex CLI, app-server, browser-control, sandbox-helper, and UI component versions.
+4. Fixed GitHub issue numbers and links.
+5. Known unresolved regressions.
+6. Task-store, workspace, permission, or configuration migrations.
+7. Minimum Windows and CPU requirements.
+8. Expected restart behavior and whether active tasks are interrupted.
+9. Supported rollback and state-recovery procedure.
+10. A clear statement when a change is server-side and not tied to the installed package.
+
+Without that ledger, an automatic Store update is an opaque replacement of a critical development environment. The user cannot make an informed decision, preserve the right state, identify a regression boundary, or know whether reinstalling will restore the same defective build. That is not acceptable change communication for a professional tool.
+
 Current follow-up:
 
 - [Codex Windows task archiving fails and completed tasks accumulate in the sidebar](./Codex-Windows-Task-Archive-Failure-20260819.md)

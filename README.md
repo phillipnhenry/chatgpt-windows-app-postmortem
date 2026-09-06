@@ -37,6 +37,28 @@ OpenAI needs to answer this directly: **Why was another $200 collected automatic
 
 The requested remedy is not marketing language or a generic link to usage documentation. OpenAI should provide the billing-period and usage-window ledger, explain the mismatch, immediately restore the allowance that the renewed month reasonably implies, and credit or refund any paid period for which the advertised 20× capacity was not actually renewed.
 
+## Bug reporting is functioning as a dumping ground, not a managed process
+
+As of 2026-09-06, the 13 OpenAI Codex issues cited by this postmortem show:
+
+- **10 open and three closed**;
+- **12 of 13 with no assignee**;
+- **nine of the ten open issues with no assignee**;
+- **183 comments in total, with zero comments identified by GitHub as coming from an OWNER, MEMBER, or COLLABORATOR**; and
+- the exact Store bootstrap report, [#36272](https://github.com/openai/codex/issues/36272), still open, unassigned, and carrying zero comments since July 31.
+
+The reports are [#39492](https://github.com/openai/codex/issues/39492), [#39638](https://github.com/openai/codex/issues/39638), [#39600](https://github.com/openai/codex/issues/39600), [#39239](https://github.com/openai/codex/issues/39239), [#39130](https://github.com/openai/codex/issues/39130), [#25489](https://github.com/openai/codex/issues/25489), [#19352](https://github.com/openai/codex/issues/19352), [#19437](https://github.com/openai/codex/issues/19437), [#19770](https://github.com/openai/codex/issues/19770), [#26624](https://github.com/openai/codex/issues/26624), [#33483](https://github.com/openai/codex/issues/33483), [#13993](https://github.com/openai/codex/issues/13993), and [#36272](https://github.com/openai/codex/issues/36272).
+
+Only #13993, the request for a standalone Windows installer, has an assignee. Closing duplicates while leaving the canonical reports unassigned and publicly silent is not meaningful bug management. Paying users are supplying reproduction steps, logs, cross-version comparisons, and recovery evidence while OpenAI supplies labels and little visible ownership.
+
+## Where are the Windows version-to-version release notes?
+
+OpenAI now publishes a combined [ChatGPT and Codex changelog](https://learn.chatgpt.com/docs/changelog), but it contains no entry for installed Windows package `26.901.5003.0`. It mixes general ChatGPT announcements, iOS releases, Codex CLI releases, and occasional desktop build numbers without providing a dependable mapping from a Microsoft Store package to its embedded Codex/app-server/browser components, fixed issues, known regressions, migrations, or rollback requirements.
+
+The September 1 entries claim more reliable task loading and reconnects, restored working directories for resumed threads, and continued MCP-tool availability through refreshes. The installed Windows app is now failing in those exact areas, yet the changelog does not establish whether `26.901.5003.0` contains those changes. A customer therefore cannot determine what changed, which bug reports were fixed, what remains broken, or whether an update is safe before allowing the Store to replace a working installation.
+
+Every Windows build needs its own release record: exact Store version, release date, rollout status, embedded component versions, fixed GitHub issue numbers, known problems, state migrations, compatibility changes, recovery steps, and rollback path. “Additional performance improvements and bug fixes” is not acceptable change control for software entrusted with long-running development state.
+
 ## Earlier status — 2026-08-20
 
 Currently running Microsoft Store package:
