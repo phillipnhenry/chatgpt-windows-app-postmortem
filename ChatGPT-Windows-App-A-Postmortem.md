@@ -23,6 +23,8 @@ ChatGPT.exe product version: 152.0.7977.64
 
 This is therefore a current failure in `26.901.5003.0`, not merely another reference to the historical `26.721.11231.0` or `26.818.2441.0` builds discussed below.
 
+The installed version was reconfirmed on 2026-09-06 through two independent local surfaces: Microsoft Store reported **Installed version 26.901.5003.0**, and every running `ChatGPT.exe` process resolved beneath `C:\Program Files\WindowsApps\OpenAI.Codex_26.901.5003.0_x64__2p2nqsd0c76g0\app\ChatGPT.exe`. The executable file and product versions were both `152.0.7977.64`.
+
 The Codex Windows app is not production-quality. In plain language, it is crap. It is unreliable in exactly the areas where a professional development tool must be dependable: startup, updates, task identity, task continuity, repository binding, tool availability, archiving, recovery, and diagnostics.
 
 This is especially infuriating because the underlying Codex agent can do excellent work. The Windows app repeatedly becomes the weakest part of the system. It crashes around active work, forces users to reconstruct state, loses capabilities from resumed tasks, resurrects stale metadata, and then offers no supported mechanism to repair the damaged task binding. The application converts productive engineering time into unpaid quality-assurance and recovery labor for OpenAI.
@@ -71,7 +73,9 @@ The recurring failures documented here show that this coverage is absent, ineffe
 
 The reliability failure is compounded by a billing problem that requires a direct answer.
 
-ChatGPT Pro 20× renewed automatically on **2026-09-04** for **$200.00**. The available Codex usage did not reset when that new paid month began. On 2026-09-06, the account still reported **57% used** in the current Codex allowance and displayed a separate usage-window reset later that day.
+ChatGPT Pro 20× renewed automatically on **2026-09-04** for **$200.00**. The available Codex usage did not reset when that new paid month began. On 2026-09-06, both the Windows app and ChatGPT in the browser showed **43% of the weekly limit left**. A direct account-limit read reported the equivalent **57% used** in a 10,080-minute (seven-day) window, with its own reset later that day. The app, browser, and backend therefore agree on the percentage; the defect being challenged is that the newly paid monthly term did not supersede or replenish the still-running weekly allowance.
+
+OpenAI's current pricing documentation says that weekly limits may apply, but it does not explain on the pricing page whether a new paid monthly term resets, supersedes, or leaves an already-running weekly window untouched. That missing contract is material at the point of automatic renewal.
 
 OpenAI must answer the obvious question:
 

@@ -2,6 +2,8 @@
 
 A technical postmortem of repeated failures in the Microsoft Store ChatGPT/Codex Windows application, including failed reinstalls, machine-wide bootstrap errors, recovery work, Procmon evidence, sandbox setup failures, and recommendations for OpenAI and Microsoft.
 
+Current issue draft: [Windows app crash corrupts task binding, repository metadata, and browser-control capability](./Codex-Windows-Crash-Corrupts-Task-Binding-20260906.md)
+
 ## Current verdict — 2026-09-06
 
 Currently installed and running Microsoft Store package:
@@ -31,7 +33,7 @@ This is an app failure, not a Chrome failure, a Discourse failure, or a user-con
 
 ## Billing and usage-reset failure — answer required
 
-ChatGPT Pro 20× renewed automatically on **2026-09-04** for **$200.00**. The available Codex usage did not reset with that paid monthly renewal. On 2026-09-06, the account still reported **57% of the current Codex allowance used**, with its own separate usage-window reset scheduled for later that day.
+ChatGPT Pro 20× renewed automatically on **2026-09-04** for **$200.00**. The available Codex usage did not reset with that paid monthly renewal. On 2026-09-06, both the Windows app and ChatGPT in the browser showed **43% of the weekly limit left**; the account backend reported the equivalent **57% used** in a 10,080-minute (seven-day) window. The newly paid monthly term therefore did not supersede or replenish the still-running weekly allowance.
 
 OpenAI needs to answer this directly: **Why was another $200 collected automatically for a new month of ChatGPT Pro 20× while the paid usage available to the customer did not reset at renewal?** If subscription billing and usage windows intentionally run on unrelated clocks, where was that disclosed clearly before renewal, and what exactly did the new $200 payment replenish at the moment it was charged?
 
