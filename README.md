@@ -15,7 +15,7 @@ Store product ID: 9PLM9XGG6VKS
 ChatGPT.exe file/product version: 152.0.7977.83
 ```
 
-The September 8 in-app update installed `26.901.6511.0`, but the updater did not restart the application despite explicitly saying it would. After the user manually returned to the app, all previously visible chat histories were absent. The damaged Brand Navigation task still had no browser capability and specifically reported that `node_repl` was missing. The update therefore neither preserved a reliable visible task history nor repaired the task-to-browser runtime binding.
+The September 8 in-app update installed `26.901.6511.0`, but the updater did not restart the application despite explicitly saying it would. After the user manually returned to the app, all previously visible chat histories were absent. The damaged Brand Navigation task still had no browser capability. It first reported that `node_repl` was missing; a subsequent capability-specific check confirmed that the updated `mcp__cua_repl` interface was also absent from that task's callable tools. The update therefore neither preserved a reliable visible task history nor repaired the task-to-browser runtime binding.
 
 The Codex Windows app is not production-quality. In ordinary language, it is crap: unreliable, continuity-breaking, difficult to diagnose, and capable of turning a successful development session into hours or days of repair work. The underlying Codex agent can produce excellent work; the Windows application wrapped around it repeatedly damages that work by crashing, losing task capabilities, reviving stale state, confusing archived and active tasks, and providing no dependable recovery path.
 

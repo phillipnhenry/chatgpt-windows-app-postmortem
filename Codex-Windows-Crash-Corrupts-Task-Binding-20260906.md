@@ -38,9 +38,9 @@ The post-update result was another failure:
 
 - all chat histories that had previously been visible in the application were absent;
 - the Brand Navigation task still lacked browser control; and
-- the task specifically reported that `node_repl` was missing.
+- the task first reported that `node_repl` was missing, then performed a capability-specific check and confirmed that `mcp__cua_repl` was also absent from its callable tool surface.
 
-The newer package therefore did not repair the damaged task-to-browser binding. It failed to perform its promised restart and returned the user to an application with no previously visible chat history.
+This is not a missing Node installation, npm package, or `PATH` entry. Both names refer to app-provided Computer Use execution interfaces; a resumed task cannot install or synthesize a host tool that the app did not attach. The newer package therefore did not repair the damaged task-to-browser binding. It failed to perform its promised restart and returned the user to an application with no previously visible chat history.
 
 ## What happened
 

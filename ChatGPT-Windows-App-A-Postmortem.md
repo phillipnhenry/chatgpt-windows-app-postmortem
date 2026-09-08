@@ -45,9 +45,9 @@ After the update:
 
 - all chat histories that had previously been visible in the application were absent;
 - the Brand Navigation task remained without its browser capability; and
-- that task specifically reported that the required `node_repl` runtime was missing.
+- that task first reported that the required `node_repl` runtime was missing, then performed a capability-specific check and confirmed that the updated app's `mcp__cua_repl` interface was also absent from its callable tool surface.
 
-These are user-observed post-update effects, while the package and executable identities are locally replayed evidence. The update did not repair the damaged task binding. It added another failed automatic-restart event and left the user facing an apparently empty visible task history.
+The missing visible histories are user-observed; the package/executable identity and the task's missing `mcp__cua_repl` capability were independently replayed through local process inspection and the task-control interface. This is not a missing Node installation, npm package, or `PATH` entry. The app did not attach the host-provided Computer Use runtime to the resumed task. The update did not repair the damaged task binding. It added another failed automatic-restart event and left the user facing an apparently empty visible task history.
 
 The Codex Windows app is not production-quality. In plain language, it is crap. It is unreliable in exactly the areas where a professional development tool must be dependable: startup, updates, task identity, task continuity, repository binding, tool availability, archiving, recovery, and diagnostics.
 
