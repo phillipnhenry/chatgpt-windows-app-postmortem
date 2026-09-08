@@ -40,7 +40,12 @@ The post-update result was another failure:
 - the Brand Navigation task still lacked browser control; and
 - the task first reported that `node_repl` was missing, then performed a capability-specific check and confirmed that `mcp__cua_repl` was also absent from its callable tool surface.
 
-This is not a missing Node installation, npm package, or `PATH` entry. Both names refer to app-provided Computer Use execution interfaces; a resumed task cannot install or synthesize a host tool that the app did not attach. The newer package therefore did not repair the damaged task-to-browser binding. It failed to perform its promised restart and returned the user to an application with no previously visible chat history.
+Follow-up eliminated two alternative explanations:
+
+- Complete deferred-tool discovery inside Brand Navigation returned `[]` for names or descriptions matching `node_repl`, CUA, Computer Use, or browser control. Neither `mcp__node_repl__js` nor `mcp__cua_repl` was hidden behind deferred discovery.
+- The task metadata cwd was `C:\CodeProjects\CodeWorksLabs\Discourse`, which is native Windows—not WSL. The real repository remained `C:\CodeProjects\Products\Discourse Brand Navigation`, so the task also retained an obsolete root independently of the missing tool binding.
+
+This is not a missing Node installation, npm package, `PATH` entry, deferred-tool lookup, or WSL pipe restriction. The app did not attach the host-provided Computer Use runtime to the resumed task, and it restored stale cwd metadata. A resumed task cannot install or synthesize a host tool that the app did not provide. The newer package therefore did not repair the damaged task-to-browser binding. It failed to perform its promised restart and returned the user to an application with no previously visible chat history.
 
 ## What happened
 
