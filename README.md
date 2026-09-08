@@ -4,22 +4,24 @@ A technical postmortem of repeated failures in the Microsoft Store ChatGPT/Codex
 
 Current issue draft: [Windows app crash corrupts task binding, repository metadata, and browser-control capability](./Codex-Windows-Crash-Corrupts-Task-Binding-20260906.md)
 
-## Current verdict — 2026-09-06
+## Current verdict — 2026-09-08
 
 Currently installed and running Microsoft Store package:
 
 ```text
 OpenAI.Codex
-Version: 26.901.5003.0
+Version: 26.901.6511.0
 Store product ID: 9PLM9XGG6VKS
-ChatGPT.exe file/product version: 152.0.7977.64
+ChatGPT.exe file/product version: 152.0.7977.83
 ```
+
+The September 8 in-app update installed `26.901.6511.0`, but the updater did not restart the application despite explicitly saying it would. After the user manually returned to the app, all previously visible chat histories were absent. The damaged Brand Navigation task still had no browser capability and specifically reported that `node_repl` was missing. The update therefore neither preserved a reliable visible task history nor repaired the task-to-browser runtime binding.
 
 The Codex Windows app is not production-quality. In ordinary language, it is crap: unreliable, continuity-breaking, difficult to diagnose, and capable of turning a successful development session into hours or days of repair work. The underlying Codex agent can produce excellent work; the Windows application wrapped around it repeatedly damages that work by crashing, losing task capabilities, reviving stale state, confusing archived and active tasks, and providing no dependable recovery path.
 
 The development, update, and release process behind the Windows app is equally unacceptable. Updates have closed working sessions, exposed ambiguous progress, failed to restart as promised, and shipped without preventing regressions in startup, task archiving, task identity, project placement, working-directory state, and tool attachment. These are not cosmetic defects. They attack the continuity guarantees on which a serious development tool depends.
 
-The latest crash on 2026-09-06 damaged a previously functioning Brand Navigation task:
+The September 6 crash damaged a previously functioning Brand Navigation task:
 
 - the task retained its conversation but lost its callable browser-control runtime;
 - Chrome, the OpenAI browser extension, and native-host registration were healthy;

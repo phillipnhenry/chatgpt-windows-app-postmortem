@@ -21,6 +21,27 @@ OS: Windows
 
 The installed version was reconfirmed on 2026-09-06 through two independent local surfaces: Microsoft Store reported **Installed version 26.901.5003.0**, and every running `ChatGPT.exe` process resolved beneath `C:\Program Files\WindowsApps\OpenAI.Codex_26.901.5003.0_x64__2p2nqsd0c76g0\app\ChatGPT.exe`. The executable file and product versions were both `152.0.7977.64`. This identity was not inferred from a marketing version or Codex CLI release.
 
+## Failed recovery through the next in-app update
+
+On 2026-09-08, the in-app updater said the application would restart after updating. It never restarted. The user had to return to it manually.
+
+The update did install a newer package, verified from every running process:
+
+```text
+Package: OpenAI.Codex
+Package version: 26.901.6511.0
+Executable: C:\Program Files\WindowsApps\OpenAI.Codex_26.901.6511.0_x64__2p2nqsd0c76g0\app\ChatGPT.exe
+ChatGPT.exe file/product version: 152.0.7977.83
+```
+
+The post-update result was another failure:
+
+- all chat histories that had previously been visible in the application were absent;
+- the Brand Navigation task still lacked browser control; and
+- the task specifically reported that `node_repl` was missing.
+
+The newer package therefore did not repair the damaged task-to-browser binding. It failed to perform its promised restart and returned the user to an application with no previously visible chat history.
+
 ## What happened
 
 Before the crash, the affected task:

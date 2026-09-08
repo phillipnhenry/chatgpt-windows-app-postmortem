@@ -2,7 +2,7 @@
 
 > This issue concerns the **Codex/ChatGPT Windows desktop application distributed through Microsoft Store**, package `OpenAI.Codex`. It is not a Codex CLI installation problem.
 
-## Document status — updated 2026-09-06
+## Document status — updated 2026-09-08
 
 This document preserves the original critical investigation of Store build `26.721.11231.0`. That build's complete startup/bootstrap failure is historical evidence, not the currently installed package state.
 
@@ -24,6 +24,30 @@ ChatGPT.exe product version: 152.0.7977.64
 This is therefore a current failure in `26.901.5003.0`, not merely another reference to the historical `26.721.11231.0` or `26.818.2441.0` builds discussed below.
 
 The installed version was reconfirmed on 2026-09-06 through two independent local surfaces: Microsoft Store reported **Installed version 26.901.5003.0**, and every running `ChatGPT.exe` process resolved beneath `C:\Program Files\WindowsApps\OpenAI.Codex_26.901.5003.0_x64__2p2nqsd0c76g0\app\ChatGPT.exe`. The executable file and product versions were both `152.0.7977.64`.
+
+### 2026-09-08 update: no promised restart, visible histories gone, browser capability still missing
+
+The in-app updater told the user that the application would restart after the update. It never restarted. The user had to return to the application manually.
+
+The running-process identity after that update is:
+
+```text
+Package name: OpenAI.Codex
+Package version: 26.901.6511.0
+Executable path: C:\Program Files\WindowsApps\OpenAI.Codex_26.901.6511.0_x64__2p2nqsd0c76g0\app\ChatGPT.exe
+ChatGPT.exe file version: 152.0.7977.83
+ChatGPT.exe product version: 152.0.7977.83
+```
+
+`Get-AppxPackage` could not be used in this execution environment because the Windows Appx module failed to load with `0x80131539`. The package identity above is independently established by the executable paths of the running `ChatGPT.exe` processes and their file metadata.
+
+After the update:
+
+- all chat histories that had previously been visible in the application were absent;
+- the Brand Navigation task remained without its browser capability; and
+- that task specifically reported that the required `node_repl` runtime was missing.
+
+These are user-observed post-update effects, while the package and executable identities are locally replayed evidence. The update did not repair the damaged task binding. It added another failed automatic-restart event and left the user facing an apparently empty visible task history.
 
 The Codex Windows app is not production-quality. In plain language, it is crap. It is unreliable in exactly the areas where a professional development tool must be dependable: startup, updates, task identity, task continuity, repository binding, tool availability, archiving, recovery, and diagnostics.
 
