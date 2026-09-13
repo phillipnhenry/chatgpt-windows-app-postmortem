@@ -2,13 +2,31 @@
 
 > This issue concerns the **Codex/ChatGPT Windows desktop application distributed through Microsoft Store**, package `OpenAI.Codex`. It is not a Codex CLI installation problem.
 
-## Document status — updated 2026-09-08
+## Document status — updated 2026-09-13
 
 This document preserves the original critical investigation of Store build `26.721.11231.0`. That build's complete startup/bootstrap failure is historical evidence, not the currently installed package state.
 
 The package observed running on 2026-08-20 is `OpenAI.Codex_26.818.2441.0`. It launches, but later builds have continued to exhibit crashes, freezes, duplicated prompts, failed steering, Store update failures, abnormal idle resource use, and broken local-task archiving. Archive testing after the update confirmed that the defect remains intermittent rather than fixed.
 
 ## September 2026 verdict: the Windows app and its release process are unacceptable
+
+### 2026-09-13 update: prompt reported failed after successful delivery
+
+The running application was independently identified from the active executable path as:
+
+```text
+Package name: OpenAI.Codex
+Package version: 26.908.4834.0
+Executable path: C:\Program Files\WindowsApps\OpenAI.Codex_26.908.4834.0_x64__2p2nqsd0c76g0\app\ChatGPT.exe
+ChatGPT.exe file version: 152.0.7977.83
+ChatGPT.exe product version: 152.0.7977.83
+```
+
+While sending a prompt on September 13, the Windows app displayed an error even though the prompt appeared in the destination task. A separate task-state check established that the backend had accepted the message and changed the destination task to active. Only one request had been sent.
+
+This is a false-failure acknowledgment defect. The user is told that submission failed after delivery has actually succeeded. Retrying is therefore unsafe: it can duplicate the instruction and, when the prompt authorizes implementation or external action, can cause duplicate work or unintended mutations. The interface provides no trustworthy distinction among “not sent,” “accepted,” “queued,” and “run started.”
+
+OpenAI should make prompt submission idempotent, expose one authoritative delivery state, retain the client request identity through retry, and ensure that an acknowledgment/UI-sync failure cannot be presented as a failed send after server acceptance. Until then, users must inspect the destination task before retrying—an unacceptable burden for a development client whose basic job is reliable task control.
 
 The package running during the 2026-09-06 incident was independently identified from the executable paths of the active `ChatGPT.exe` processes:
 

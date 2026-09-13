@@ -4,16 +4,18 @@ A technical postmortem of repeated failures in the Microsoft Store ChatGPT/Codex
 
 Current issue draft: [Windows app crash corrupts task binding, repository metadata, and browser-control capability](./Codex-Windows-Crash-Corrupts-Task-Binding-20260906.md)
 
-## Current verdict — 2026-09-08
+## Current verdict — 2026-09-13
 
 Currently installed and running Microsoft Store package:
 
 ```text
 OpenAI.Codex
-Version: 26.901.6511.0
+Version: 26.908.4834.0
 Store product ID: 9PLM9XGG6VKS
 ChatGPT.exe file/product version: 152.0.7977.83
 ```
+
+On September 13, the app displayed an error while sending a prompt even though the prompt appeared in the destination task, was accepted by the task backend, and changed that task to active. Only one request had been sent. This is a dangerous false-failure state: the UI tells the user that submission failed after delivery actually succeeded, making the natural Retry action capable of duplicating instructions or triggering duplicate work. A professional task client must expose one authoritative delivery state, attach an idempotency identity to retries, and distinguish “not sent,” “accepted,” “queued,” and “run started.” A generic error after successful acceptance is not merely confusing; it can cause unintended mutations when the prompt authorizes work.
 
 The September 8 in-app update installed `26.901.6511.0`, but the updater did not restart the application despite explicitly saying it would. After the user manually returned to the app, all previously visible chat histories were absent. The damaged Brand Navigation task still had no browser capability. It first reported that `node_repl` was missing; a subsequent capability-specific check confirmed that the updated `mcp__cua_repl` interface was also absent from that task's callable tools. The update therefore neither preserved a reliable visible task history nor repaired the task-to-browser runtime binding.
 
